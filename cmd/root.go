@@ -19,7 +19,7 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
-			if debug {
+			if talkative {
 				logger.Debug = true
 			}
 			logger.Debugf("root PersistentPreRun called")
@@ -39,8 +39,8 @@ to quickly create a Cobra application.`,
 		},
 		Version: version,
 	}
-	debug   bool
-	version = "0.0.0"
+	talkative bool
+	version   = "0.0.0"
 )
 
 func Execute() {
@@ -51,6 +51,6 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "d", false, "print debug messages")
 	rootCmd.Flags().SetInterspersed(false)
+	rootCmd.PersistentFlags().BoolVarP(&talkative, "talkative", "t", false, "talkative messages")
 }
