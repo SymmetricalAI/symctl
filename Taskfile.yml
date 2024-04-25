@@ -43,10 +43,10 @@ tasks:
     - task: prepare-test-plugin
     - cp ./output/symctl ~/.symctl-tests/bin/symctl
     - export PATH=~/.symctl-tests/bin:$PATH && symctl-foo bar --baz
-    - export PATH=~/.symctl-tests/bin:$PATH && symctl version
+    - export PATH=~/.symctl-tests/bin:$PATH && symctl --version
     - export PATH=~/.symctl-tests/bin:$PATH && symctl install https://lalala.com/symctl-foo --version 1.0.0 || true
     - export PATH=~/.symctl-tests/bin:$PATH && symctl install https://lalala.com/symctl-foo || true
-    - export PATH=~/.symctl-tests/bin:$PATH && export DEBUG=1 && symctl install || true
+    - export PATH=~/.symctl-tests/bin:$PATH && symctl -d install || true
     - export PATH=~/.symctl-tests/bin:$PATH && symctl foo bar --baz
   test-install:
     cmds:
