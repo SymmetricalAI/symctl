@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]
-        go-version: [ '1.22.0' ]
+        go-version: [ '1.22.2' ]
 
     runs-on: ${{ matrix.os }}
 
@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go-version }}
-          cache: false # Disable cache because we do not have go.sum so far
+          cache: true
       - name: Run tests
         run: go test -v ./... -json > TestResults-${{ matrix.os }}-${{ matrix.go-version }}.json
       - name: Upload test results
