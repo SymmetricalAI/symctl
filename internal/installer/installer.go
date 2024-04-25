@@ -7,7 +7,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -38,38 +37,38 @@ func Install(address string) {
 
 	executablePath, err := os.Executable()
 	if err != nil {
-		log.Fatalf("Error getting executable path: %s\n", err)
+		logger.Fatalf("Error getting executable path: %s\n", err)
 	}
 	logger.Debugf("Executable path: %s\n", executablePath)
 
 	releases, err := downloadReleases(address)
 	if err != nil {
-		log.Fatalf("Error downloading releases: %s\n", err)
+		logger.Fatalf("Error downloading releases: %s\n", err)
 	}
 
 	logger.Debugf("Releases: %v\n", releases)
 
 	url, err := pickReleaseUrl(releases)
 	if err != nil {
-		log.Fatalf("Error picking release URL: %s\n", err)
+		logger.Fatalf("Error picking release URL: %s\n", err)
 	}
 	logger.Debugf("Downloading from %s\n", url)
 
 	dir, err := createTempDir()
 	if err != nil {
-		log.Fatalf("Error creating temporary directory: %s\n", err)
+		logger.Fatalf("Error creating temporary directory: %s\n", err)
 	}
 
 	filePath, err := downloadFile(url, dir)
 	if err != nil {
-		log.Fatalf("Error downloading file: %s\n", err)
+		logger.Fatalf("Error downloading file: %s\n", err)
 	}
 
 	logger.Debugf("Downloaded file to %s\n", filePath)
 
 	destDir := filepath.Join(dir, "unarchived")
 	if err := os.Mkdir(destDir, 0755); err != nil {
-		log.Fatalf("Error creating destination directory: %s\n", err)
+		logger.Fatalf("Error creating destination directory: %s\n", err)
 	}
 
 	logger.Debugf("Filepath extension: %s\n", filepath.Ext(url))
@@ -77,7 +76,7 @@ func Install(address string) {
 	// if url ends with .gz, unarchive it
 	if filepath.Ext(url) == ".gz" {
 		if err := unarchiveTarGz(filePath, destDir); err != nil {
-			log.Fatalf("Error unarchiving file: %s\n", err)
+			logger.Fatalf("Error unarchiving file: %s\n", err)
 		}
 
 		logger.Debugf("Unarchived file to %s\n", destDir)
@@ -86,7 +85,7 @@ func Install(address string) {
 	// if url ends with .zip, unzip it
 	if filepath.Ext(url) == ".zip" {
 		if err := unzip(filePath, destDir); err != nil {
-			log.Fatalf("Error unzipping file: %s\n", err)
+			logger.Fatalf("Error unzipping file: %s\n", err)
 		}
 
 		logger.Debugf("Unzipped file to %s\n", destDir)
@@ -94,11 +93,11 @@ func Install(address string) {
 
 	installDir, err := getInstallDir()
 	if err != nil {
-		log.Fatalf("Error getting install directory: %s\n", err)
+		logger.Fatalf("Error getting install directory: %s\n", err)
 	}
 
 	if err := copyDir(destDir, installDir); err != nil {
-		log.Fatalf("Error copying to install directory: %s\n", err)
+		logger.Fatalf("Error copying to install directory: %s\n", err)
 	}
 
 	logger.Debugf("Installed to %s\n", installDir)

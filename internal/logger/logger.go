@@ -9,3 +9,7 @@ func Debugf(format string, args ...interface{}) {
 		log.Printf(format, args...)
 	}
 }
+
+func Fatalf(format string, args ...interface{}) {
+	log.Fatalf(format, args...)
+}
