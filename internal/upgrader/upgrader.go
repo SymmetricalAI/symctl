@@ -84,6 +84,10 @@ func downloadReleaseAsset(ctx context.Context, client *github.Client, assetId *i
 	if err != nil {
 		logger.Fatalf("Error copying asset to temp file: %v\n", err)
 	}
+	err = os.Chmod(f.Name(), 0755)
+	if err != nil {
+		logger.Fatalf("Error changing temp file permissions: %v\n", err)
+	}
 	return f.Name()
 }
 
