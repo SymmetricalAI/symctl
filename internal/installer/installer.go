@@ -33,8 +33,8 @@ type Release struct {
 	Created     time.Time `json:"created"`
 }
 
-func Install(address string, args []string) {
-	logger.Debugf("Installing plugin from %s with args %v\n", address, args)
+func Install(address string) {
+	logger.Debugf("Installing plugin from %s\n", address)
 
 	executablePath, err := os.Executable()
 	if err != nil {
