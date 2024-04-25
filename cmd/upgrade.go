@@ -21,7 +21,7 @@ to quickly create a Cobra application.`,
 			logger.Debugf("upgrade Run called")
 			logger.Debugf("upgrade args: %v\n", args)
 			logger.Debugf("dry-run: %v\n", dryRun)
-			upgrader.Upgrade(dryRun)
+			upgrader.Upgrade(version, dryRun)
 		},
 	}
 	dryRun bool

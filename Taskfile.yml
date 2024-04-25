@@ -4,6 +4,7 @@ tasks:
   build:
     cmds:
       - |
+        go mod tidy
         go build \
         -ldflags "-X 'github.com/SymmetricalAI/symctl/cmd.version=0.0.1-test'" \
         -o output/symctl main.go
@@ -67,3 +68,6 @@ tasks:
       - chmod +x ~/.symctl-tests/bin/symctl
       - export PATH=~/.symctl-tests/bin:$PATH && symctl --version
       - export PATH=~/.symctl-tests/bin:$PATH && symctl -t upgrade --dry-run
+      - export PATH=~/.symctl-tests/bin:$PATH && symctl -t upgrade
+      - export PATH=~/.symctl-tests/bin:$PATH && symctl --version || true
+      - export PATH=~/.symctl-tests/bin:$PATH && symctl version || true
