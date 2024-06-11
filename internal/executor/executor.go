@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"os"
 	"os/exec"
+	"strings"
 
 	"github.com/SymmetricalAI/symctl/internal/logger"
 )
@@ -43,4 +45,20 @@ func Execute(plugin string, args []string) {
 	if err := cmd.Wait(); err != nil {
 		log.Fatalf("Cmd finished with error: %v\n", err)
 	}
+}
+
+func ListPlugins(dir string) ([]string, error) {
+	binDir := fmt.Sprintf("%s/bin", dir)
+	files, err := os.ReadDir(binDir)
+	if err != nil {
+		return nil, err
+	}
+	var plugins []string
+	for _, file := range files {
+		if !strings.HasPrefix(file.Name(), "symctl-") {
+			continue
+		}
+		plugins = append(plugins, strings.TrimPrefix(file.Name(), "symctl-"))
+	}
+	return plugins, nil
 }

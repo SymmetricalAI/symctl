@@ -91,7 +91,7 @@ func Install(address string) {
 		logger.Debugf("Unzipped file to %s\n", destDir)
 	}
 
-	installDir, err := getInstallDir()
+	installDir, err := GetInstallDir()
 	if err != nil {
 		logger.Fatalf("Error getting install directory: %s\n", err)
 	}
@@ -373,7 +373,7 @@ func copyDir(src string, dst string) error {
 	return err
 }
 
-func getInstallDir() (string, error) {
+func GetInstallDir() (string, error) {
 	executablePath, err := os.Executable()
 	if err != nil {
 		return "", err

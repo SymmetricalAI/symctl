@@ -43,13 +43,15 @@ tasks:
     - task: build
     - task: prepare-test-plugin
     - cp ./output/symctl ~/.symctl-tests/bin/symctl
+    - ls -la ~/.symctl-tests/bin
     - export PATH=~/.symctl-tests/bin:$PATH && symctl-foo bar --baz
     - export PATH=~/.symctl-tests/bin:$PATH && symctl --version
+    - export PATH=~/.symctl-tests/bin:$PATH && symctl --help
     - export PATH=~/.symctl-tests/bin:$PATH && symctl install https://lalala.com/symctl-foo --version 1.0.0 || true
     - export PATH=~/.symctl-tests/bin:$PATH && symctl install https://lalala.com/symctl-foo || true
-    - export PATH=~/.symctl-tests/bin:$PATH && symctl install not-url || true
+    - export PATH=~/.symctl-tests/bin:$PATH && symctl -t install not-url || true
     - export PATH=~/.symctl-tests/bin:$PATH && symctl -t install || true
-    - export PATH=~/.symctl-tests/bin:$PATH && symctl foo bar --baz
+    - export PATH=~/.symctl-tests/bin:$PATH && symctl -t foo bar --baz
   test-install:
     cmds:
       - task: build
@@ -57,8 +59,9 @@ tasks:
       - task: prepare-test-directory
       - cp ./output/symctl ~/.symctl-tests/bin/symctl
       - chmod +x ~/.symctl-tests/bin/symctl
-      - export PATH=~/.symctl-tests/bin:$PATH && symctl install https://raw.githubusercontent.com/SymmetricalAI/symctl-hello-sh/main/manifest.json
-      - export PATH=~/.symctl-tests/bin:$PATH && symctl hello-sh test
+      - export PATH=~/.symctl-tests/bin:$PATH && symctl -t install https://raw.githubusercontent.com/SymmetricalAI/symctl-hello-sh/main/manifest.json
+      - export PATH=~/.symctl-tests/bin:$PATH && symctl --help
+      - export PATH=~/.symctl-tests/bin:$PATH && symctl -t hello-sh test
   test-upgrade:
     cmds:
       - task: build
