@@ -1,6 +1,6 @@
 module github.com/SymmetricalAI/symctl
 
-go 1.22.2
+go 1.20
 
 require (
 	github.com/google/go-github/v61 v61.0.0

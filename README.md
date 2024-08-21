@@ -12,3 +12,17 @@ bash <(curl -s https://raw.githubusercontent.com/SymmetricalAI/symctl/main/insta
 ```bash
 export PATH=$PATH:$HOME/.symctl/bin
 ```
+
+## Docker Image:
+
+- Docker image is built for symctl
+- Its running in port 8080
+- Tag the docker image by your docker-hub username
+ ```bash
+   docker tag symctl your-dockerhub-username/symctl
+```
+- Push the tagged image to your docker-hub repository using the following command
+
+```bash
+    docker push your-dockerhub-username/symctl
+```
